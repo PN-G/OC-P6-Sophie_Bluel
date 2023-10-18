@@ -143,6 +143,12 @@ li:hover {
 	margin-bottom: 1.5em;
 }
 
+.filtre:hover {
+	background-color: #1D6154;
+	color: white;
+	cursor: pointer;
+}
+
 .filtre_selected {
 	background-color: #1D6154;
 	color: white;
