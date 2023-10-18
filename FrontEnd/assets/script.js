@@ -37,7 +37,7 @@ const conteneurFiltres = document.querySelector(".filtres");
 // premier filtre "reset"
 const filtreReset = document.createElement("button");
 filtreReset.innerText = "Tous";
-filtreReset.classList.add("filtre", "filtre_selected");
+filtreReset.classList.add("filtre");
 
 conteneurFiltres.appendChild(filtreReset);
 
