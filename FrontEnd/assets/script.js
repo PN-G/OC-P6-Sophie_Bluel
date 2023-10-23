@@ -1,3 +1,44 @@
+// récuperation du token d'identification pour afficher la page admin
+const token = window.sessionStorage.getItem("token")
+
+// affichage du panneau administrateur si le token n'est pas vide (si on est identifié)
+if (token !== null) {
+    console.log("vous etes connecté")
+
+    // création et ajout de la bannière noire
+    const divAdmin = document.createElement("div")
+    divAdmin.classList.add("edit-mode_banner")
+
+    const body = document.querySelector("body")
+    const header = document.querySelector("header")
+
+    body.insertBefore(divAdmin, header)
+
+    // création du contenu de la bannière administrateur
+    const divAdminIcon = document.createElement("i")
+    divAdminIcon.classList.add("fa-regular","fa-pen-to-square")
+    const divAdminText = document.createElement ("p")
+    divAdminText.innerText = "Mode édition"
+
+    divAdmin.appendChild(divAdminIcon)
+    divAdmin.appendChild(divAdminText)
+
+    // ajout du bouton modifier
+    const adminModalLink = document.createElement("a")
+    adminModalLink.href = ("")
+    const adminModalLinkText = document.createElement("p")
+    adminModalLinkText.innerText="modifier"
+    
+    adminModalLink.appendChild(divAdminIcon)
+    adminModalLink.appendChild(adminModalLinkText)
+    
+    const portfolioHeader = document.querySelector(".portfolio-header")
+
+    portfolioHeader.appendChild(adminModalLink)
+}
+
+
+
 const reponse = await fetch("http://localhost:5678/api/works");
 const projets = await reponse.json();
 
@@ -9,7 +50,6 @@ const gallery = document.querySelector(".gallery");
 function genererProjets(projets) {
   for (let i = 0; i < projets.length; i++) {
     const projet = projets[i];
-    console.log(projet.imageUrl);
 
     //creation du conteneur de chaque projet
     const figureProjet = document.createElement("figure");
@@ -34,10 +74,15 @@ const filtres = await categories.json();
 
 const conteneurFiltres = document.querySelector(".filtres");
 
+//variables pour les classes et le texte des filtres
+const filtreResetText = "Tous"
+const filtreClass = "filtre"
+const filtreSelectedClass = "filtre_selected"
+
 // premier filtre "reset"
 const filtreReset = document.createElement("button");
-filtreReset.innerText = "Tous";
-filtreReset.classList.add("filtre");
+filtreReset.innerText = filtreResetText;
+filtreReset.classList.add(filtreClass);
 
 conteneurFiltres.appendChild(filtreReset);
 
@@ -47,7 +92,7 @@ function genererFiltres(filtres) {
     const filtre = filtres[i];
     const bouttonFiltre = document.createElement("button");
     bouttonFiltre.innerText = filtre.name;
-    bouttonFiltre.classList.add("filtre");
+    bouttonFiltre.classList.add(filtreClass);
     conteneurFiltres.appendChild(bouttonFiltre);
   }
 }
@@ -69,10 +114,10 @@ boutonFiltres.forEach((boutonFiltre) => {
 // Fonction qui va filtrer les projets en fonction de la catégorie
 function filtrerProjets(boutonFiltre) {
   const projetFiltres = projets.filter((projet) => {
-    if (boutonFiltre.innerText === "Tous") {
+    if (boutonFiltre.innerText.toLowerCase() === filtreResetText.toLowerCase()) {
       return projets;
     } else {
-      return projet.category.name === boutonFiltre.innerText;
+      return projet.category.name.toLowerCase() === boutonFiltre.innerText.toLowerCase();
     }
   });
   gallery.innerHTML = "";
@@ -82,9 +127,9 @@ function filtrerProjets(boutonFiltre) {
 // Fonction qui va retirer ou ajouter la classe filtre_selected
 function addClassSelected(boutonFiltre) {
   for (let i = 0; i < boutonFiltres.length; i++) {
-    if (boutonFiltres[i].classList.contains("filtre_selected")) {
-      boutonFiltres[i].classList.remove("filtre_selected");
+    if (boutonFiltres[i].classList.contains(filtreSelectedClass)) {
+      boutonFiltres[i].classList.remove(filtreSelectedClass);
     }
   }
-  boutonFiltre.classList.add("filtre_selected");
+  boutonFiltre.classList.add(filtreSelectedClass);
 }
