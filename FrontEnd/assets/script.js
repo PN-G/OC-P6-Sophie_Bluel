@@ -3,7 +3,6 @@ const token = window.sessionStorage.getItem("token")
 
 // affichage du panneau administrateur si le token n'est pas vide (si on est identifié)
 if (token !== null) {
-    console.log("vous etes connecté")
 
     // création et ajout de la bannière noire
     const divAdmin = document.createElement("div")
@@ -25,7 +24,8 @@ if (token !== null) {
 
     // ajout du bouton modifier
     const adminModalLink = document.createElement("a")
-    adminModalLink.href = ("")
+    adminModalLink.href = ("#modal")
+    adminModalLink.classList.add("js-modal")
     const adminModalLinkText = document.createElement("p")
     adminModalLinkText.innerText="modifier"
     
@@ -47,7 +47,7 @@ const projets = await reponse.json();
 //selection de l'element du DOM dans lequel les projets vont etre ajoutés
 const gallery = document.querySelector(".gallery");
 
-function genererProjets(projets) {
+async function genererProjets(projets) {
   for (let i = 0; i < projets.length; i++) {
     const projet = projets[i];
 
@@ -87,7 +87,7 @@ filtreReset.classList.add(filtreClass);
 conteneurFiltres.appendChild(filtreReset);
 
 //fonction pour récuperer la liste des filtres
-function genererFiltres(filtres) {
+async function genererFiltres(filtres) {
   for (let i = 0; i < filtres.length; i++) {
     const filtre = filtres[i];
     const bouttonFiltre = document.createElement("button");

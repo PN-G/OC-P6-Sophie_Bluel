@@ -259,6 +259,99 @@ li a:hover {
 	color: black
 }
 
+#modal {
+	position: fixed;
+	top: 25%;
+	width: 600px;
+	height: 600px;
+	border: 1px solid transparent;
+	border-radius: 10px;
+}
+
+.modal-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.modal-content h3 {
+	margin-top: 30px;
+	font-size: 26px;
+}
+
+.modal-work-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 50px 50px 40px 50px;
+	gap: 10px;
+	border-bottom: 1px solid #b3b3b3;
+	padding-bottom: 60px;
+}
+
+.modal-img-container {
+	position: relative;
+	width: 18%;
+	height: 100px;
+}
+
+.remove-icon {
+	color: white;
+	border-radius: 5px;
+	background-color: black;
+	font-size: 10px;
+	height: 20px;
+	width: 20px;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.modal-work-img {
+	width: 100%;
+	height: 100%;
+}
+
+.modal-button {
+	font-family: "Syne";
+	color: white;
+	background-color: #1d6154;
+	border: none;
+	width: 250px;
+	height: 40px;
+	text-align: center;
+	border-radius: 60px;
+}
+
+.modal-bgd {
+	background-color: rgba(0, 0, 0, 0.75);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;	
+}
+
+.modal-bgd_active {
+	display: flex;		
+}
+
+.modal-close {
+	position: absolute;
+	top: 30px;
+	right: 40px;
+	font-size: 20px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
 .filtres {
   display: flex;
   justify-content: center;
