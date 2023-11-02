@@ -78,6 +78,8 @@ async function genererProjets(projets) {
     const removeIcon = document.createElement("i");
     removeIconContainer.classList.add("remove-icon");
     removeIcon.classList.add("fa-solid", "fa-trash-can");
+    removeIcon.setAttribute("id", `${projet.id}`)
+    removeIcon.addEventListener("click", deleteWork)
     removeIconContainer.appendChild(removeIcon);
 
     //creation des images pour chaque projet
@@ -252,5 +254,25 @@ function formListener() {
   })
 }
   
-  
+// fonction qui supprime les projets en au click sur l'icone poubelle
+
+const deleteWork = async function deleteWork(event) {
+  event.preventDefault()
+  const removeWorkId = this.id
+  console.log(`j'ai cliqué sur l'icone ${removeWorkId}`)
+  try {
+    const DeleteWorkApi = await fetch(`http://localhost:5678/api/works/${removeWorkId}`,{
+      method: "DELETE",
+      headers: {Authorization : "Bearer "+ token},
+    })
+    if(DeleteWorkApi.ok){
+      alert("Projet supprimé avec succès")
+    } else {
+        throw new Error("Requête échouée");
+    }  
+  } catch (error) {
+    window.alert("La requête a échoué");
+}
+
+}
   
