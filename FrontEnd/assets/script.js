@@ -1,6 +1,7 @@
 // récuperation du token d'identification pour afficher la page admin
 const token = window.sessionStorage.getItem("token")
 const userId = window.sessionStorage.getItem("userId")
+
 // affichage du panneau administrateur si le token n'est pas vide (si on est identifié)
 if (token !== null && userId !== null) {
 
@@ -36,8 +37,6 @@ if (token !== null && userId !== null) {
 
     portfolioHeader.appendChild(adminModalLink)
 }
-
-
 
 const reponse = await fetch("http://localhost:5678/api/works");
 const projets = await reponse.json();

@@ -333,14 +333,16 @@ li a:hover {
 }
 
 .modal-button-two {
-  background-color: #306685;
+  background-color: #A7A7A7;
   position: absolute;
-  bottom: 25px;
+  bottom: 40px;
   left: 30%;
+  cursor: auto;
 }
 
 .modal-button_form-ok {
   background-color: #1d6154;
+  cursor: pointer;
 }
 
 .modal-button_active {
@@ -575,5 +577,7 @@ footer nav ul {
   align-items: center;
   margin: 2em;
 }
+
+
 
 
