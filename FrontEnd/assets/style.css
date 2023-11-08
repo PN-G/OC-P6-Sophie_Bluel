@@ -259,7 +259,14 @@ li a:hover {
 	color: black
 }
 
-#modal {
+.admin-modal-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.modal-dialog {
 	position: fixed;
 	top: 15%;
 	width: 600px;

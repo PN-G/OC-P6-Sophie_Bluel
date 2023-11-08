@@ -4,7 +4,7 @@ const userId = window.sessionStorage.getItem("userId");
 
 // selection des élements de la modale (fond + contenu modale)
 const modalBackground = document.querySelector(".modal-bgd");
-const modalDialog = document.querySelector("#modal");
+const modalDialog = document.querySelector(".modal-dialog");
 const modalContentContainer = document.querySelector(".modal-content");
 const modalTitle = document.querySelector(".modal-title");
 const modalWorkContainer = document.querySelector(".modal-work-container");

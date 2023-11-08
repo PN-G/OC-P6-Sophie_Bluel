@@ -24,9 +24,8 @@ if (token !== null && userId !== null) {
     divAdmin.appendChild(divAdminText)
 
     // ajout du bouton modifier
-    const adminModalLink = document.createElement("a")
-    adminModalLink.href = ("#modal")
-    adminModalLink.classList.add("js-modal")
+    const adminModalLink = document.createElement("div")
+    adminModalLink.classList.add("js-modal", "admin-modal-link")
     const adminModalLinkText = document.createElement("p")
     adminModalLinkText.innerText="modifier"
     
