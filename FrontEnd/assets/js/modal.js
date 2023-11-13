@@ -28,10 +28,37 @@ const openModal = function () {
 };
 
 // fonction qui ferme la modale
-const closeModal = function () {
+const closeModal = async function () {
   modalDialog.close();
   modalBackground.classList.remove("modal-bgd_active");
+  const updatedList = await fetch("http://localhost:5678/api/works");
+  const newProjectList = await updatedList.json()
+  updateHomepage(newProjectList)
 };
+
+// fonction qui met à jour les projets sur la page d'accueil après l'ajout ou la suppression d'un projet
+async function updateHomepage(projets) {
+  const gallery = document.querySelector(".gallery");
+  gallery.innerHTML = ""
+  for (let i = 0; i < projets.length; i++) {
+    const projet = projets[i];
+
+    //creation du conteneur de chaque projet
+    const figureProjet = document.createElement("figure");
+
+    //creation des elements pour chaque projet
+    const imageProjet = document.createElement("img");
+    imageProjet.src = projet.imageUrl;
+    imageProjet.alt = projet.title;
+    const titreProjet = document.createElement("figcaption");
+    titreProjet.innerText = projet.title;
+
+    //ajout des éléments générés à la page
+    gallery.appendChild(figureProjet);
+    figureProjet.appendChild(imageProjet);
+    figureProjet.appendChild(titreProjet);
+  }
+}
 
 // ouverture de la modale au clic sur le lien "modifier"
 document.querySelector(".js-modal").addEventListener("click", openModal);
@@ -88,7 +115,7 @@ function createModalOne() {
 
 // Récupération des projets
 const reponse = await fetch("http://localhost:5678/api/works");
-const projets = await reponse.json();
+const projets = await reponse.json()
 
 // fonction pour générer les projets
 async function genererProjets(projets) {
@@ -190,14 +217,20 @@ const deleteWork = async function deleteWork(event) {
   const removeWorkId = this.id;
   if(confirm("souhaitez vous supprimer le projet ?")) {
     try {
-      const DeleteWorkApi = await fetch(`http://localhost:5678/api/works/${removeWorkId}`, {
+      const deleteWorkApi = await fetch(`http://localhost:5678/api/works/${removeWorkId}`, {
           method: "DELETE",
           headers: { Authorization: "Bearer " + token },
         });
-      if (DeleteWorkApi.ok) {
+      //const deletedWork = await deleteWorkApi.json()
+      if (deleteWorkApi.ok) {
         alert("Projet supprimé avec succès");
+        modalContentReset()
+        const updatedList = await fetch("http://localhost:5678/api/works");
+        const newProjectList = await updatedList.json()
+        genererProjets(newProjectList)
+        modalAddButton.classList.add("modal-button_active");
       }
-    } catch (error) {
+    } catch (err) {
       alert("Une erreur est survenue, merci de réessayer ultérieurement");
     }
   }
@@ -303,7 +336,10 @@ async function sendNewProject(event) {
     const reponseApi = await sendWorkToApi.json();
     if (sendWorkToApi.ok) {
       alert("Projet ajouté avec succès");
-    }
+      modalContentReset()
+      projets.push(reponseApi)
+      createModalOne(projets)
+      }    
   } catch (err) {
     alert("Une erreur est survenue, merci de réessayer ultérieurement");
   }
